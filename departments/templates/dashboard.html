@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Dashboard</h2>
+
+  <form method="GET" action="{% url 'dashboard' %}" class="mb-4">
+      <input type="text" name="q" placeholder="Search Department" value="{{ request.GET.q }}">
+      <button type="submit">Search</button>
+  </form>
+
+  {% if departments %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sr. No.</th>
+        <th>Department Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for department in departments %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ department.dept_name }}</td>
+        <td>{{ department.description }}</td>
+        <td>
+          <a href="{% url 'edit_department' department.dept_id %}" class="btn btn-warning btn-sm">Edit</a>
+          <a href="{% url 'delete_department' department.dept_id %}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No departments found.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+<p>Are you sure you want to deactivate "{{ department.name }}"?</p>
+<p>Warning: Make sure no employees are linked to this department!</p>
+<form method="post">{% csrf_token %}
+    <button type="submit">Yes, Deactivate</button>
+    <a href="{% url 'dashboard' %}">Cancel</a>
+</form>

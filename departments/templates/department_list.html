@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Departments</h2>
+    <form method="get" action="{% url "department_list" %}" class="mb-4 flex">
+        <input type="text" name="q" placeholder="Search departments...." value="{{request.GET.q}}" class="form-control me-2" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    <a href="{% url 'create_department' %}" class="btn btn-success">Create Department</a>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Department Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for department in departments %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ department.dept_name }}</td>
+        <td>{{ department.description }}</td>
+        <td><a href="{% url 'edit_department' department.dept_id %}" class="btn btn-warning">Edit</a></td>
+        <td><a href="{% url 'delete_department' department.dept_id %}" class="btn btn-danger">Delete</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">No departments found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
